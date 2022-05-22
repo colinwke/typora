@@ -1,6 +1,26 @@
 :root {
-    --side-bar-bg-color: #fafafa;
-    --control-text-color: #777;
+    /*background color*/
+    --bg-c-l: #fff;
+    --bg-c-m: #fff;
+    --bg-c-h: #fff;
+
+    /*foreground(text) color*/
+    --fg-c-l: #fff;
+    --fg-c-m: #fff;
+    --fg-c-h: #fff;
+
+    --base-font: "Glow Sans", "Microsoft YaHei", serif;
+    --title-font: "Roboto Slab", "Times", serif;
+    --code-font: "Cascadia code", "Courier New", monospace;
+
+    /* --background : url("https://cdn.jsdelivr.net/gh/LSTM-Kirigaya/KImage/Img/2k.jpg"); */
+
+    --quote-title-font-size: 0.9em;
+    --quote-tag-font-size: 1.1em;
+
+    /* typora GUI config */
+    --sidebar-font-color: black;
+    --main-panel-font-color: black;
 }
 
 html {
@@ -16,9 +36,8 @@ body, #write pre.md-meta-block {
 
 #write {
     max-width: 860px;
-      margin: 0 auto;
-      padding: 30px;
-    padding-bottom: 100px;
+    margin: 0 auto;
+    padding: 30px 30px 100px;
 }
 
 @media only screen and (min-width: 1400px) {
@@ -34,13 +53,14 @@ body, #write pre.md-meta-block {
 }
 
 #write > ul:first-child,
-#write > ol:first-child{
+#write > ol:first-child {
     margin-top: 30px;
 }
 
 a {
     color: #4183C4;
 }
+
 h1,
 h2,
 h3,
@@ -57,6 +77,7 @@ h6 {
     padding-left: 0.4rem;
     border-bottom: 1px solid #eee;
 }
+
 h1:hover a.anchor,
 h2:hover a.anchor,
 h3:hover a.anchor,
@@ -65,6 +86,7 @@ h5:hover a.anchor,
 h6:hover a.anchor {
     text-decoration: none;
 }
+
 h1 tt,
 h2 tt,
 h3 tt,
@@ -101,28 +123,34 @@ h3 {
     font-size: 1.5em;
     line-height: 1.43;
 }
+
 h4 {
     font-size: 1.25em;
 }
+
 h5 {
     font-size: 1em;
 }
+
 h6 {
-   font-size: 1em;
+    font-size: 1em;
     color: #777;
 }
+
 p,
 blockquote,
 ul,
 ol,
 dl,
-table{
+table {
     margin: 0.8em 0;
 }
-li>ol,
-li>ul {
+
+li > ol,
+li > ul {
     margin: 0 0;
 }
+
 hr {
     height: 2px;
     padding: 0;
@@ -136,40 +164,49 @@ hr {
 li p.first {
     display: inline-block;
 }
+
 ul,
 ol {
     padding-left: 30px;
 }
+
 ul:first-child,
 ol:first-child {
     margin-top: 0;
 }
+
 ul:last-child,
 ol:last-child {
     margin-bottom: 0;
 }
+
 blockquote {
     border-left: 4px solid #dfe2e5;
     padding: 0 15px;
     color: #777777;
 }
+
 blockquote blockquote {
     padding-right: 0;
 }
+
 table {
     font-size: 0.8em;
     padding: 0;
     word-break: initial;
 }
+
 table tr {
     border: 1px solid #dfe2e5;
     margin: 0;
     padding: 0;
 }
+
 table tr:nth-child(2n),
 thead {
     background-color: #f8f8f8;
 }
+
 table th {
     font-weight: bold;
     border: 1px solid #dfe2e5;
@@ -177,15 +214,18 @@ table th {
     margin: 0;
     padding: 6px 13px;
 }
+
 table td {
     border: 1px solid #dfe2e5;
     margin: 0;
     padding: 6px 13px;
 }
+
 table th:first-child,
 table td:first-child {
     margin-top: 0;
 }
+
 table th:last-child,
 table td:last-child {
     margin-bottom: 0;
@@ -196,46 +236,66 @@ table td:last-child {
 }
 
 .code-tooltip {
-    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    box-shadow: 0 1px 1px 0 rgba(0, 28, 36, .3);
     border-top: 1px solid #eef2f2;
 }
 
 .md-fences,
 code,
 tt {
+    /*border: 1px solid #e7eaed;*/
+    /*background-color: #f8f8f8;*/
+    /*border-radius: 3px;*/
+    /*padding: 0;*/
+    /*padding: 2px 4px 0 4px;*/
+    /*font-size: 0.9em;*/
+}
+
+tt {
+    font-size: 0.8em;
+    padding: 2px 4px 0 4px;
     border: 1px solid #e7eaed;
-    background-color: #f8f8f8;
     border-radius: 3px;
-    padding: 0;
-    padding: 2px 4px 0px 4px;
-    font-size: 0.9em;
+    background-color: #f8f8f8;
 }
 
 code {
-    background-color: #f3f4f4;
-    padding: 0 2px 0 2px;
+    /*font-weight: bold;*/
+    background: #db3f1e;
+    /*background: #008000;*/
+    color: #ffffff;
+    /*font-weight: bold;*/
+    border-bottom: 0 solid #ffffff;
+    padding: 1px;
+    margin: 0 0;
 }
 
 .md-fences {
+    font-size: 0.8em;
     margin-bottom: 15px;
     margin-top: 15px;
     padding-top: 8px;
     padding-bottom: 6px;
+    border: 1px solid #e7eaed;
+    border-radius: 3px;
+    background-color: #f8f8f8;
 }
 
 
 .md-task-list-item > input {
-  margin-left: -1.3em;
+    margin-left: -1.3em;
 }
 
 @media print {
     html {
         font-size: 13px;
     }
+
     table,
     pre {
         page-break-inside: avoid;
     }
+
     pre {
         word-wrap: break-word;
     }
@@ -256,7 +316,7 @@ code {
     margin-top: 0 !important;
 }
 
-.mathjax-block>.code-tooltip {
+.mathjax-block > .code-tooltip {
     bottom: .375rem;
 }
 
@@ -264,26 +324,30 @@ code {
     background: #fafafa;
 }
 
-#write>h3.md-focus:before{
+#write > h3.md-focus:before {
     left: -1.5625rem;
     top: .375rem;
 }
-#write>h4.md-focus:before{
+
+#write > h4.md-focus:before {
     left: -1.5625rem;
     top: .285714286rem;
 }
-#write>h5.md-focus:before{
+
+#write > h5.md-focus:before {
     left: -1.5625rem;
     top: .285714286rem;
 }
-#write>h6.md-focus:before{
+
+#write > h6.md-focus:before {
     left: -1.5625rem;
     top: .285714286rem;
 }
-.md-image>.md-meta {
+
+.md-image > .md-meta {
     /*border: 1px solid #ddd;*/
     border-radius: 3px;
-    padding: 2px 0px 0px 4px;
+    padding: 2px 0 0 4px;
     font-size: 0.9em;
     color: inherit;
 }
@@ -293,7 +357,7 @@ code {
     opacity: 1;
 }
 
-.md-toc { 
+.md-toc {
     padding: 0.2px;
     margin: 2px;
     font-size: 75%;
@@ -323,15 +387,19 @@ code {
 .md-toc-h2 {
     margin-left: -1em;
 }
+
 .md-toc-h3 {
     margin-left: -2em;
 }
+
 .md-toc-h4 {
     margin-left: -3em;
 }
+
 .md-toc-h5 {
     margin-left: -4em;
 }
+
 .md-toc-h6 {
     margin-left: -5em;
 }
@@ -357,18 +425,17 @@ code {
     border-left-color: rgba(85, 85, 85, 0.12);
 }
 
-header, footer, .context-menu, .megamenu-content{
+header, footer, .context-menu, .megamenu-content {
     font-family: "Segoe UI", "Arial", "sans-serif";
 }
 
 .file-node-content:hover .file-node-icon,
-.file-node-content:hover .file-node-open-state{
+.file-node-content:hover .file-node-open-state {
     visibility: visible;
 }
 
 .mac-seamless-mode #typora-sidebar {
     background-color: #fafafa;
-    background-color: var(--side-bar-bg-color);
 }
 
 .md-lang {
@@ -399,7 +466,7 @@ header, footer, .context-menu, .megamenu-content{
 
 .menu-item-container a.menu-style-btn {
     background-color: #db3f1e;
-    background-image: linear-gradient( 180deg , hsla(0, 0%, 100%, 0.8), hsla(0, 0%, 100%, 0)); 
+    background-image: linear-gradient(180deg, hsla(0, 0%, 100%, 0.8), hsla(0, 0%, 100%, 0));
 }
 
 /* ==背景高亮== https://zhuanlan.zhihu.com/p/193101244 */
@@ -407,13 +474,15 @@ mark {
     background: #db3f1e;
     color: #ffffff;
     font-weight: bold;
-    border-bottom: 0px solid #ffffff;
-    padding: 1.0px;
-    margin: 0 0px;
+    border-bottom: 0 solid #ffffff;
+    padding: 1px;
+    margin: 0 0;
 }
 
 /* 选中文字高亮 https://zhuanlan.zhihu.com/p/193101244 */
-::selection { background-color: #d1ff79; }
+::selection {
+    background-color: #d1ff79;
+}
 
 /* **强调** */
 strong {
@@ -422,9 +491,9 @@ strong {
     /*background: #008000;*/
     color: #ffffff;
     /*font-weight: bold;*/
-    border-bottom: 0px solid #ffffff;
-    padding: 1.0px;
-    margin: 0 0px;
+    border-bottom: 0 solid #ffffff;
+    padding: 1px;
+    margin: 0 0;
 }
 
 /* *斜体* */
@@ -451,9 +520,25 @@ u {
     /*border-bottom: 1px solid #ffffff;*/
     border: 1px solid #008000;
     padding: 1px;
-    margin: 0px;
+    margin: 0;
     text-decoration-thickness: 2px;
     text-decoration-color: #db3f1e !important;
 }
 
 /* https://theme.typora.io/doc/Write-Custom-Theme/ */
+
+
+.outline-item:hover {
+    background-color: #db3f1e;
+    color: white;
+}
+
+.outline-item-active {
+    border-top-right-radius: 1.2em;
+    border-bottom-right-radius: 1.2em;
+    padding-right: 1.2em;
+    width: fit-content;
+    background-color: #db3f1e !important;
+    color: white;
+    transition: all linear .3s;
+}
