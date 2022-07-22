@@ -59,6 +59,7 @@ body, #write pre.md-meta-block {
 
 a {
     color: #4183C4;
+    font-size: 80%;
 }
 
 h1,
@@ -266,6 +267,7 @@ code {
     color: #ffffff;
     /*font-weight: bold;*/
     border-bottom: 0 solid #ffffff;
+    border-radius: 3px;
     padding: 1px;
     margin: 0 0;
 }
@@ -475,6 +477,7 @@ mark {
     color: #ffffff;
     font-weight: bold;
     border-bottom: 0 solid #ffffff;
+    border-radius: 3px;
     padding: 1px;
     margin: 0 0;
 }
@@ -492,6 +495,7 @@ strong {
     color: #ffffff;
     /*font-weight: bold;*/
     border-bottom: 0 solid #ffffff;
+    border-radius: 4px;
     padding: 1px;
     margin: 0 0;
 }
@@ -500,14 +504,17 @@ strong {
 em {
     font-style: italic;
     border: 1px solid #db3f1e;
+    border-radius: 4px;
     padding: 1px;
 }
 
 /* 删除线 */
 del {
     text-decoration: line-through !important;
-    text-decoration-color: #db3f1e !important;
-    border: 1px solid #db3f1e;
+    text-decoration-color: #999 !important;
+    color: #999;
+    border: 1px solid #999;
+    border-radius: 4px;
     text-decoration-thickness: 2px;
     /*https://stackoverflow.com/a/16410273/6494418*/
 }
@@ -519,6 +526,7 @@ u {
     /*font-weight: bold;*/
     /*border-bottom: 1px solid #ffffff;*/
     border: 1px solid #008000;
+    border-radius: 4px;
     padding: 1px;
     margin: 0;
     text-decoration-thickness: 2px;
