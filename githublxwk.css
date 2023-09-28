@@ -75,7 +75,7 @@ h6 {
     font-weight: bold;
     line-height: 1.4;
     cursor: text;
-    border-left: 0.4rem solid #db3f1e;
+    border-left: 0.4rem solid #db3f1e; /* https://stackoverflow.com/a/54889334/6494418 */
     padding-left: 0.4rem;
     border-bottom: 1px solid #eee;
 }
@@ -191,8 +191,8 @@ ol:last-child {
 }
 
 blockquote {
-    border-left: 4px solid #dfe2e5;
-    padding: 0 15px;
+    border-left: 0.4rem solid #dfe2e5;
+    padding: 0 1.4rem;
     color: #777777;
 }
 
@@ -243,6 +243,7 @@ table td:last-child {
 
 .CodeMirror-lines {
     padding-left: 4px;
+    padding-bottom: 16px;  /* 代码滚动条, 可以导出html查看style确定名称 */
 }
 
 .code-tooltip {
@@ -256,7 +257,6 @@ tt {
     /*border: 1px solid #e7eaed;*/
     /*background-color: #f8f8f8;*/
     /*border-radius: 3px;*/
-    /*padding: 0;*/
     /*padding: 2px 4px 0 4px;*/
     /*font-size: 0.9em;*/
 }
@@ -264,13 +264,13 @@ tt {
 /* 头部的注释框+代码 */
 tt {
     font-size: 0.8em;
-    padding: 2px 4px 0 4px;
+    padding: 2px 4px 2px 4px;
     border: 1px solid #e7eaed;
     border-radius: 3px;
     background-color: #f8f8f8;
 }
 
-/* ``内容 */
+/* `` 内容 */
 code {
     /*font-weight: bold;*/
     background: #eeeeee;
@@ -285,8 +285,9 @@ code {
 }
 
 .md-fences {
+    /* md-fences is code block 代码 块 `````` */
+    /* 注意, 这里的line-break在软件里设置, 在这里设置无效 */
     font-size: 0.8em;
-    margin-bottom: 15px;
     margin-top: 15px;
     padding-top: 8px;
     padding-bottom: 6px;
@@ -294,7 +295,6 @@ code {
     border-radius: 3px;
     background-color: #f8f8f8;
 }
-
 
 .md-task-list-item > input {
     margin-left: -1.3em;
@@ -313,10 +313,6 @@ code {
     pre {
         word-wrap: break-word;
     }
-}
-
-.md-fences {
-    background-color: #f8f8f8;
 }
 
 #write pre.md-meta-block {
@@ -372,24 +368,37 @@ code {
 }
 
 .md-toc {
-    padding: 0.2px;
+    position: fixed;
+    display: block;
+    width: var(--sidebar-width);
+    /*font-size: 0.8em;*/
+    right: 0;
+    top: 0;
+    left: calc(100% - var(--sidebar-width));
+    /*padding-bottom: 84px;*/
+    /*overflow: scroll;*/
+    height: 100%;
+    border-left: 1px solid #eee;
+    padding: 1px;
     margin: 2px;
     font-size: 75%;
     line-height: 1.4;
-    background-color: #f7f7f7;
-    border: 0;
-    border-radius: 3px;
-    color: #777777;
+    /*background-color: #f7f7f7;*/
+    /*border: 0;*/
+    border-radius: 0;
+    /*color: #777777;*/
     margin-top: 0 !important;
+    /*overflow: scroll;*/
+    overflow-x: scroll;
 }
 
 .md-toc-content {
-    -moz-column-count: 3;
-    -moz-column-gap: 24px;
-    -webkit-column-count: 3;
-    -webkit-column-gap: 24px;
-    column-count: 3;
-    column-gap: 24px;
+    /*-moz-column-count: 3;*/
+    /*-moz-column-gap: 24px;*/
+    /*-webkit-column-count: 3;*/
+    /*-webkit-column-gap: 24px;*/
+    /*column-count: 3;*/
+    /*column-gap: 24px;*/
 }
 
 .md-toc-item {
@@ -483,7 +492,7 @@ header, footer, .context-menu, .megamenu-content {
     background-image: linear-gradient(180deg, hsla(0, 0%, 100%, 0.8), hsla(0, 0%, 100%, 0));
 }
 
-/* ==背景高亮== https://zhuanlan.zhihu.com/p/193101244 */
+/* ==选中背景高亮== https://zhuanlan.zhihu.com/p/193101244 */
 mark {
     background: #db3f1e;
     color: #ffffff;
@@ -555,14 +564,15 @@ u {
 }
 
 .outline-item-active {
-    border-top-right-radius: 1.2em;
-    border-bottom-right-radius: 1.2em;
-    padding-right: 1.2em;
+    border-top-right-radius: 1.0em;
+    border-bottom-right-radius: 1.0em;
+    padding-right: 1.0em;
     width: fit-content;
     background-color: #db3f1e !important;
     color: white;
     transition: all linear .3s;
 }
+
 /*https://zhuanlan.zhihu.com/p/503555038#侧边栏*/
 /*侧边栏*/
 /*BothView by XiLaiTL|MIT License|English-Chinese*/
@@ -600,6 +610,7 @@ u {
     left: var(--sidebar-width);
     right: var(--sidebar-width);
 }
+
 /*-----------------------------------------------------------------------*/
 /*当点击“文件”时，【大纲侧边栏】同时显示在右侧*//*When clicking "Files", move outline bar to right area*/
 
@@ -609,20 +620,21 @@ u {
 /*    min-width: 0%;*/
 /*}*/
 /*点击“文件”时 【大纲侧边栏】*//*When clicking "Files", set the outline bar*/
-.pin-outline .active-tab-files #outline-content {
-    position: fixed;
-    display: block;
-    width: var(--sidebar-width);
-    /*font-size: 0.8em;*/
-    right: 0;
-    left: calc(100% - var(--sidebar-width));
-    /*padding-bottom: 84px;*/
-    /*overflow: scroll;*/
-    height: 100%;
-}
-.pin-outline .active-tab-files #outline-content li {
-    height: 1.1em;
-}
+/*.pin-outline .active-tab-files #outline-content {*/
+/*    position: fixed;*/
+/*    display: block;*/
+/*    width: var(--sidebar-width);*/
+/*    !*font-size: 0.8em;*!*/
+/*    right: 0;*/
+/*    left: calc(100% - var(--sidebar-width));*/
+/*    !*padding-bottom: 84px;*!*/
+/*    !*overflow: scroll;*!*/
+/*    height: 100%;*/
+/*    border-left: 1px solid #eee;*/
+/*}*/
+/*.pin-outline .active-tab-files #outline-content li {*/
+/*    height: 1.5em;*/
+/*}*/
 /*-----------------------------------------------------------------------*/
 /*当点击“大纲”时，【大纲侧边栏】显示在左侧，右侧空白由【文件侧边栏】的div去填补*//*When clicking "Outline", move outline bar to left area and let files bar fill the right area which is empty*/
 
