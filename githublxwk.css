@@ -8,6 +8,8 @@
     --fg-c-l: #fff;
     --fg-c-m: #fff;
     --fg-c-h: #fff;
+    --base-font-color: rgb(51, 51, 51);
+    --one-line-block-padding: 0;
 
     /* var(--base-font) */
     --base-font: "LXGW Wenkai Screen R", "Smiley Sans", "Open Sans", "Clear Sans", "Helvetica Neue", "Helvetica", "Arial", "Segoe UI Emoji", "sans-serif";
@@ -32,7 +34,7 @@ html {
 
 body, #write pre.md-meta-block {
     font-family: var(--base-font);
-    color: rgb(51, 51, 51);
+    color: var(--base-font-color);
     line-height: 1.4;
 }
 
@@ -76,9 +78,10 @@ h6 {
     font-weight: bold;
     line-height: 1.4;
     cursor: text;
-    border-left: 0.4rem solid #db3f1e; /* https://stackoverflow.com/a/54889334/6494418 */
+    border-left: 0.4rem solid #db3f1e; /* 左侧红色https://stackoverflow.com/a/54889334/6494418 */
     padding-left: 0.4rem;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #eee;  /*下划线*/
+    background: #eeeeee;
 }
 
 h1:hover a.anchor,
@@ -303,7 +306,7 @@ code {
     /*font-weight: bold;*/
     border-bottom: 0 solid #ffffff;
     border-radius: 1px;
-    padding: 1px;
+    padding: var(--one-line-block-padding);
     margin: 0 0;
     font-family: var(--base-font);
 }
@@ -517,18 +520,18 @@ header, footer, .context-menu, .megamenu-content {
     background-image: linear-gradient(180deg, hsla(0, 0%, 100%, 0.8), hsla(0, 0%, 100%, 0));
 }
 
-/* ==选中背景高亮== https://zhuanlan.zhihu.com/p/193101244 */
+/* ==高亮== https://zhuanlan.zhihu.com/p/193101244 */
 mark {
     background: #e8e830;
-    color: #ffffff;
+    color: var(--base-font-color);
     font-weight: bold;
     border-bottom: 0 solid #ffffff;
     border-radius: 1px;
-    padding: 1px;
+    padding: var(--one-line-block-padding);
     margin: 0 0;
 }
 
-/* 选中文字高亮 https://zhuanlan.zhihu.com/p/193101244 */
+/* 选中文字 https://zhuanlan.zhihu.com/p/193101244 */
 ::selection {
     background-color: #d1ff79;
 }
@@ -542,7 +545,7 @@ strong {
     /*font-weight: bold;*/
     border-bottom: 0 solid #ffffff;
     border-radius: 1px;
-    padding: 1px;
+    padding: var(--one-line-block-padding);
     margin: 0 0;
 }
 
@@ -551,7 +554,7 @@ em {
     font-style: italic;
     border: 1px solid #db3f1e;
     border-radius: 1px;
-    padding: 1px;
+    padding: var(--one-line-block-padding);
 }
 
 /* ~~删除线~~ */
@@ -563,6 +566,7 @@ del {
     border-radius: 1px;
     /*text-decoration-thickness: 2px;*/
     text-decoration-style: double;
+    padding: var(--one-line-block-padding);
     /*https://stackoverflow.com/a/16410273/6494418*/
 }
 
@@ -574,7 +578,7 @@ u {
     /*border-bottom: 1px solid #ffffff;*/
     border: 1px solid #008000;
     border-radius: 1px;
-    padding: 1px;
+    padding: var(--one-line-block-padding);
     margin: 0;
     text-decoration-thickness: 2px;
     text-decoration-color: #db3f1e !important;
