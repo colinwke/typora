@@ -20,8 +20,10 @@
 
     --quote-title-font-size: 0.9em;
     --quote-tag-font-size: 1.1em;
-    /* 左文件列表默认 1/4；勿加 !important，否则 Typora 拖动无法更新 --sidebar-width */
+    /* sider_v2：左文件 1/4 + 右目录 1/6 + 中间正文 7/12
+       勿对 --sidebar-width 加 !important：Typora 拖动时靠 JS setProperty 更新该变量 */
     --sidebar-width: calc(100% / 4);
+    --outline-width: calc(100% / 6);
 
     /* typora GUI config */
     --sidebar-font-color: black;
@@ -420,11 +422,11 @@ code {
 .md-toc {
     position: fixed;
     display: block;
-    width: var(--sidebar-width);
+    width: var(--outline-width);
     /*font-size: 0.8em;*/
     right: 0;
     top: 0;
-    left: calc(100% - var(--sidebar-width));
+    left: calc(100% - var(--outline-width));
     /*padding-bottom: 84px;*/
     /*overflow: scroll;*/
     height: 100%;
@@ -659,12 +661,12 @@ u {
 /*=======================================================================*/
 /*逻辑设置，当点击“显示侧边栏时”，【内容】被移动到中间，留出两侧分别放置【文件】和【大纲】*//*Logical setting for you toggling sidebar, move the content to the middle area and remain the left area for Files and right area for Outline*/
 
-/*当点击“显示侧边栏”时 【内容】 *//*When toggling sidebar, move the content to the middle area*/
+/*当点击“显示侧边栏”时 【内容】：左让出文件列表、右让出目录 *//*When toggling sidebar, move the content to the middle area*/
 .pin-outline content {
     /*min-height: 0;*/
     /*height:calc(100% - 30px);*/
     left: var(--sidebar-width);
-    right: var(--sidebar-width);
+    right: var(--outline-width);
 }
 
 /* 列表 li color start*/
@@ -720,29 +722,24 @@ ol ol, ul ul, ol ul, ul ol {
 /* 列表 li color end*/
 
 /*-----------------------------------------------------------------------*/
-/*当点击“文件”时，【大纲侧边栏】同时显示在右侧*//*When clicking "Files", move outline bar to right area*/
+/*当点击“文件”时，【大纲/目录】显示在右侧（默认 1/6）*//*When clicking "Files", move outline bar to right area*/
 
-/*点击“文件”时 【文件侧边栏】*//*When clicking "Files", set the files bar*/
-/*.pin-outline .active-tab-files #file-library {*/
-/*    width: var(--sidebar-width);*/
-/*    min-width: 0%;*/
-/*}*/
-/*点击“文件”时 【大纲侧边栏】*//*When clicking "Files", set the outline bar*/
-/*.pin-outline .active-tab-files #outline-content {*/
-/*    position: fixed;*/
-/*    display: block;*/
-/*    width: var(--sidebar-width);*/
-/*    !*font-size: 0.8em;*!*/
-/*    right: 0;*/
-/*    left: calc(100% - var(--sidebar-width));*/
-/*    !*padding-bottom: 84px;*!*/
-/*    !*overflow: scroll;*!*/
-/*    height: 100%;*/
-/*    border-left: 1px solid #eee;*/
-/*}*/
-/*.pin-outline .active-tab-files #outline-content li {*/
-/*    height: 1.5em;*/
-/*}*/
+.pin-outline .active-tab-files #outline-content {
+    position: fixed;
+    display: block;
+    width: var(--outline-width);
+    right: 0;
+    left: calc(100% - var(--outline-width));
+    height: 100%;
+    border-left: 1px solid #eee;
+    padding-bottom: 84px;
+    overflow: auto;
+    background-color: var(--side-bar-bg-color, #fafafa);
+}
+
+.pin-outline .active-tab-files #outline-content li {
+    height: 1.5em;
+}
 /*-----------------------------------------------------------------------*/
 /*当点击“大纲”时，【大纲侧边栏】显示在左侧，右侧空白由【文件侧边栏】的div去填补*//*When clicking "Outline", move outline bar to left area and let files bar fill the right area which is empty*/
 

@@ -20,8 +20,10 @@
 
     --quote-title-font-size: 0.9em;
     --quote-tag-font-size: 1.1em;
-    /* 左文件列表默认 1/4；勿加 !important，否则 Typora 拖动无法更新 --sidebar-width */
+    /* 布局默认比例：左文件 1/4 + 右目录 1/6 + 中间正文 7/12
+       勿对 --sidebar-width 加 !important：Typora 拖动时靠 JS setProperty 更新该变量 */
     --sidebar-width: calc(100% / 4);
+    --outline-width: calc(100% / 4);
 
     /* typora GUI config */
     --sidebar-font-color: black;
@@ -420,11 +422,11 @@ code {
 .md-toc {
     position: fixed;
     display: block;
-    width: var(--sidebar-width);
+    width: var(--outline-width);
     /*font-size: 0.8em;*/
     right: 0;
     top: 0;
-    left: calc(100% - var(--sidebar-width));
+    left: calc(100% - var(--outline-width));
     /*padding-bottom: 84px;*/
     /*overflow: scroll;*/
     height: 100%;
@@ -615,18 +617,112 @@ u {
 
 
 .outline-item:hover {
-    background-color: #db3f1e;
-    color: white;
+    background-color: #4a4a4a;
+    color: #fff;
+    /* 紧凑包裹，取消 Typora 默认通栏透明 border 拉伸 */
+    margin-left: 0;
+    margin-right: 0;
+    border-left: 0;
+    border-right: 0;
+    width: fit-content;
+    max-width: 100%;
+    border-radius: 3px;
+    padding-left: 4px;
+    padding-right: 6px;
 }
 
-.outline-item-active {
-    border-top-right-radius: 1.0em;
-    border-bottom-right-radius: 1.0em;
-    padding-right: 1.0em;
+.outline-item-active,
+#outline-content .outline-item-active > .outline-item,
+#outline-content .outline-active > .outline-item {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-radius: 3px;
+    padding-right: 6px;
+    padding-left: 4px;
     width: fit-content;
-    background-color: #db3f1e !important;
-    color: white;
-    transition: all linear .3s;
+    max-width: 100%;
+    background-color: #3a3a3a !important;
+    color: #fff;
+    transition: background-color linear .15s;
+}
+
+/* ========== 目录大纲：`.` 层级前缀 + 默认全部展开 ========== */
+/* 去掉全局 ul>li 的 • 前缀，仅保留层级 . 前缀 */
+#outline-content ul,
+#outline-content ul > li {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    list-style: none !important;
+}
+
+#outline-content ul > li::before {
+    content: none !important;
+    display: none !important;
+}
+
+/* 取消 Typora 默认 em 缩进，改用点号前缀表示层级 */
+#outline-content .outline-h1 > .outline-item,
+#outline-content .outline-h2 > .outline-item,
+#outline-content .outline-h3 > .outline-item,
+#outline-content .outline-h4 > .outline-item,
+#outline-content .outline-h5 > .outline-item,
+#outline-content .outline-h6 > .outline-item {
+    padding-left: 0;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+#outline-content .outline-h1 > .outline-item .outline-label::before {
+    content: ". ";
+}
+
+#outline-content .outline-h2 > .outline-item .outline-label::before {
+    content: ".. ";
+}
+
+#outline-content .outline-h3 > .outline-item .outline-label::before {
+    content: "... ";
+}
+
+#outline-content .outline-h4 > .outline-item .outline-label::before {
+    content: ".... ";
+}
+
+#outline-content .outline-h5 > .outline-item .outline-label::before {
+    content: "..... ";
+}
+
+#outline-content .outline-h6 > .outline-item .outline-label::before {
+    content: "...... ";
+}
+
+#outline-content .outline-label::before {
+    color: inherit;
+    opacity: 0.55;
+    font-weight: 600;
+    letter-spacing: 0;
+    white-space: pre;
+}
+
+#outline-content .outline-item {
+    display: inline-block;
+    width: fit-content;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+#outline-content .outline-label {
+    display: inline;
+    vertical-align: baseline;
+}
+
+/* 默认不折叠：展开全部子节点，隐藏折叠箭头 */
+#outline-content .outline-children {
+    display: block !important;
+}
+
+#outline-content .outline-expander {
+    display: none !important;
 }
 
 /*https://zhuanlan.zhihu.com/p/503555038#侧边栏*/
@@ -659,29 +755,29 @@ u {
 /*=======================================================================*/
 /*逻辑设置，当点击“显示侧边栏时”，【内容】被移动到中间，留出两侧分别放置【文件】和【大纲】*//*Logical setting for you toggling sidebar, move the content to the middle area and remain the left area for Files and right area for Outline*/
 
-/*当点击“显示侧边栏”时 【内容】 *//*When toggling sidebar, move the content to the middle area*/
+/*当点击“显示侧边栏”时 【内容】：左让出文件列表、右让出目录 *//*When toggling sidebar, move the content to the middle area*/
 .pin-outline content {
     /*min-height: 0;*/
     /*height:calc(100% - 30px);*/
     left: var(--sidebar-width);
-    right: var(--sidebar-width);
+    right: var(--outline-width);
 }
 
 /* 列表 li color start*/
 /* ========== 自定义列表序号/符号颜色 ========== */
-/* 1. 有序列表（1. 2. 3.）颜色 */
-ol {
+/* 1. 有序列表（1. 2. 3.）颜色：仅正文 */
+#write ol {
     --list-number-color: #e74c3c; /* 自定义颜色（红色），可替换为任意色值 */
     counter-reset: list-counter;
     padding-left: 1.8em !important; /* 避免序号和文字重叠 */
 }
 
-ol > li {
+#write ol > li {
     list-style: none !important; /* 隐藏默认序号 */
     position: relative;
 }
 
-ol > li::before {
+#write ol > li::before {
     content: counter(list-counter) ". "; /* 生成序号（1. 2. 3.） */
     counter-increment: list-counter;
     color: var(--list-number-color); /* 应用自定义颜色 */
@@ -692,18 +788,18 @@ ol > li::before {
     left: -1.5em; /* 调整序号位置 */
 }
 
-/* 2. 无序列表（-、*、+）颜色 */ /* ✅ 修复注释冲突 */
-ul {
+/* 2. 无序列表（-、*、+）颜色：仅正文，避免污染目录/文件树 */ /* ✅ 修复注释冲突 */
+#write ul {
     --list-bullet-color: #3498db; /* 自定义颜色（蓝色），可替换为任意色值 */
     padding-left: 1.8em !important;
 }
 
-ul > li {
+#write ul > li {
     list-style: none !important; /* 隐藏默认符号 */
     position: relative;
 }
 
-ul > li::before {
+#write ul > li::before {
     content: "•"; /* 符号类型：-、*、+ 任选（✅ 同步修复注释） */
     color: var(--list-bullet-color); /* 应用自定义颜色 */
     font-weight: 600; /* 可选：加粗符号 */
@@ -713,36 +809,42 @@ ul > li::before {
 }
 
 /* 可选：嵌套列表样式（避免子列表颜色继承混乱） */
-ol ol, ul ul, ol ul, ul ol {
+#write ol ol, #write ul ul, #write ol ul, #write ul ol {
     padding-left: 1.5em !important;
 }
 
 /* 列表 li color end*/
 
 /*-----------------------------------------------------------------------*/
-/*当点击“文件”时，【大纲侧边栏】同时显示在右侧*//*When clicking "Files", move outline bar to right area*/
+/*当点击“文件”时，【大纲/目录】显示在右侧（默认 1/6）*//*When clicking "Files", move outline bar to right area*/
 
-/*点击“文件”时 【文件侧边栏】*//*When clicking "Files", set the files bar*/
-/*.pin-outline .active-tab-files #file-library {*/
-/*    width: var(--sidebar-width);*/
-/*    min-width: 0%;*/
-/*}*/
-/*点击“文件”时 【大纲侧边栏】*//*When clicking "Files", set the outline bar*/
-/*.pin-outline .active-tab-files #outline-content {*/
-/*    position: fixed;*/
-/*    display: block;*/
-/*    width: var(--sidebar-width);*/
-/*    !*font-size: 0.8em;*!*/
-/*    right: 0;*/
-/*    left: calc(100% - var(--sidebar-width));*/
-/*    !*padding-bottom: 84px;*!*/
-/*    !*overflow: scroll;*!*/
-/*    height: 100%;*/
-/*    border-left: 1px solid #eee;*/
-/*}*/
-/*.pin-outline .active-tab-files #outline-content li {*/
-/*    height: 1.5em;*/
-/*}*/
+.pin-outline .active-tab-files #outline-content {
+    position: fixed;
+    display: block;
+    width: var(--outline-width);
+    right: 0;
+    left: calc(100% - var(--outline-width));
+    height: 100%;
+    border-left: 1px solid #eee;
+    padding-bottom: 84px;
+    overflow: auto;
+    background-color: var(--side-bar-bg-color, #fafafa);
+}
+
+/* 勿设固定 height：展开子目录后 li 含嵌套树，固定高度会导致层级重叠 */
+.pin-outline .active-tab-files #outline-content li {
+    height: auto;
+    min-height: 0;
+    line-height: normal;
+}
+
+.pin-outline .active-tab-files #outline-content .outline-item {
+    min-height: 0;
+    line-height: 1.25;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    box-sizing: border-box;
+}
 /*-----------------------------------------------------------------------*/
 /*当点击“大纲”时，【大纲侧边栏】显示在左侧，右侧空白由【文件侧边栏】的div去填补*//*When clicking "Outline", move outline bar to left area and let files bar fill the right area which is empty*/
 

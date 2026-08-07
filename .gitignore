@@ -10,3 +10,9 @@ _*
 .idea/
 *.iml
 .DS_Store
+
+
+*.woff2
+*.png
+*.ttf
+LICENSE
